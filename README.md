@@ -27,3 +27,10 @@ Generalizations and updated app flow are...
 4. Application queries Mongo for the available collections, populates into a dropdown
 5. User clicks a go button and the application queries available query fields for the selected collection
 6. Available fields populated into a dropdown selector, empty text field for query value
+7. User enters value, hits go, and document collection gets searched
+8. Results displayed within card view
+
+----
+
+## Long-term support plan
+ * Add support for single document upserts
