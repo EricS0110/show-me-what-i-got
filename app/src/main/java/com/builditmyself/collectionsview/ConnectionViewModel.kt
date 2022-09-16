@@ -2,6 +2,6 @@ package com.builditmyself.collectionsview
 
 import androidx.lifecycle.ViewModel
 
-class MainViewModel : ViewModel() {
+class ConnectionViewModel : ViewModel() {
     // TODO: Implement the ViewModel
 }
