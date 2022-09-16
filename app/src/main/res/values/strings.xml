@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">View Things</string>
+    <string name="app_name">View DB</string>
+    <string name="mongodb_username">MongoDB Username</string>
+    <string name="username_hint">As defined in MongoDB</string>
+    <string name="mongodb_password">MongoDB Password</string>
+    <string name="password_hint">As defined in MongoDB</string>
+    <string name="login_button_text">Login</string>
 </resources>

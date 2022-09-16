@@ -1,4 +1,4 @@
-package com.builditmyself.collectionsview
+package com.builditmyself.collectionsview.model
 
 import androidx.lifecycle.ViewModel
 
