@@ -5,4 +5,11 @@
     <string name="mongodb_password">MongoDB Password</string>
     <string name="password_hint">As defined in MongoDB</string>
     <string name="login_button_text">Login</string>
+    <string name="mongo_cluster">Mongo Cluster</string>
+    <string name="mongo_cluster_hint">Cluster defined in MongoDB</string>
+    <string name="mongo_uri_string">Mongo URI String</string>
+    <string name="mongo_uri_hint">URI characters in MongoDB</string>
+    <string name="mongo_database">Mongo Database</string>
+    <string name="mongo_database_hint">Database defined in MongoDB</string>
+    <string name="confirm_user_details_button">Confirm</string>
 </resources>
