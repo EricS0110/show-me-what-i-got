@@ -7,15 +7,6 @@
     <fragment
         android:id="@+id/userLogin"
         android:name="com.builditmyself.collectionsview.UserLoginFragment"
-        android:label="Login"
-        tools:layout="@layout/fragment_user_login" >
-        <action
-            android:id="@+id/action_userLogin_to_userDetails"
-            app:destination="@id/userDetails" />
-    </fragment>
-    <fragment
-        android:id="@+id/userDetails"
-        android:name="com.builditmyself.collectionsview.UserDetails"
-        android:label="fragment_user_details"
-        tools:layout="@layout/fragment_user_details" />
+        android:label="@string/login_fragment_label"
+        tools:layout="@layout/fragment_user_login" />
 </navigation>
