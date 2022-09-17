@@ -51,13 +51,19 @@ class UserLoginFragment : Fragment() {
 
         // Only proceed if User & Password not blank
         if (userName.isBlank() || userPass.isBlank()) {
-//            Toast.makeText(this.context, "Missing user or pass", Toast.LENGTH_LONG).show()
             MaterialAlertDialogBuilder(this.requireContext())
                 .setTitle(resources.getString(R.string.invalid_user_or_pass))
                 .setMessage(resources.getString(R.string.invalid_user_pass_message))
                 .show()
             return false
         }
+        // Check if username and password defined in database
+        // If defined, test connection to MongoDB
+        //      if MongoDB connection successful, return true
+        //      else notify user to verify provided credentials with alert dialog and return false
+
+        // If not defined, verify remaining credentials not blank, test connection to MongoDB
+        //      if MongoDB connection successful, add connection credentials to database
         return true
     }
 
