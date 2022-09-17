@@ -8,17 +8,38 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
+import com.builditmyself.collectionsview.data.Connection
 import com.builditmyself.collectionsview.databinding.FragmentUserLoginBinding
 import com.builditmyself.collectionsview.model.MongoDataViewModel
 import com.builditmyself.collectionsview.model.ConnectionViewModel
+import com.builditmyself.collectionsview.model.ConnectionViewModelFactory
 
 
 class UserLoginFragment : Fragment() {
     private var _binding: FragmentUserLoginBinding? = null
     private val binding get() = _binding!!
     private val mongoViewModel: MongoDataViewModel by activityViewModels()
-    private val connectionViewModel: ConnectionViewModel by activityViewModels()
+    private val connectionViewModel: ConnectionViewModel by activityViewModels {
+        ConnectionViewModelFactory(
+            (activity?.application as ConnectionApplication).database.connectionDao()
+        )
+    }
+    lateinit var connection: Connection
 
+    private fun isEntryValid(): Boolean {
+        return connectionViewModel.isEntryValid(
+            binding.userEntryEdit.text.toString(),
+            binding.passwordEntryEdit.text.toString()
+        )
+    }
+
+    /////////////////////////////////////////////
+    //
+    //
+    // Android Application flow functions
+    //
+    //
+    /////////////////////////////////////////////
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
