@@ -15,4 +15,14 @@
     <string name="login_fragment_label">Provide user details</string>
     <string name="hidden_details_hint"><font color='#1b5e20'>scroll down for details if required</font></string>
     <string name="just_an_indicator">just an indicator</string>
+    <string name="click_for_help_popup">click for help popup</string>
+    <string name="mongo_help_title_1">Explaining User Credentials</string>
+    <string name="mongo_user_credentials">These are the Username and Password you
+        define within MongoDB, not your general MongoDB email &amp; password</string>
+    <string name="mongo_help_title_2">Decode MongoDB Connection String</string>
+    <string name="mongo_generalized_string">This is a template of where to find your information
+        within the connection string provided by MongoDB:\n\n
+        These values can be retrieved from your MongoDB Atlas instance -> click your database ->
+        click your cluster -> click "Connect" -> click "Connect your application"
+        \n\n\nmongodb+srv://{username}:{password}@{cluster}.{mongoURI}.mongodb.net</string>
 </resources>
