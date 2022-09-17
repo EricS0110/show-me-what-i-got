@@ -34,11 +34,31 @@ class UserLoginFragment : Fragment() {
     }
     lateinit var connection: Connection
 
+    /////////////////////////////////////////////
+    //
+    //
+    // Input validation options
+    //
+    //
+    /////////////////////////////////////////////
     private fun isEntryValid(): Boolean {
-        return connectionViewModel.isEntryValid(
-            binding.userEntryEdit.text.toString(),
-            binding.passwordEntryEdit.text.toString()
-        )
+        // Get all available fields
+        val userName = binding.userEntryEdit.text.toString()
+        val userPass = binding.passwordEntryEdit.text.toString()
+        val userCluster = binding.clusterEditText.text.toString()
+        val userUri = binding.uriEditText.text.toString()
+        val userDatabase = binding.databaseEditText.text.toString()
+
+        // Only proceed if User & Password not blank
+        if (userName.isBlank() || userPass.isBlank()) {
+//            Toast.makeText(this.context, "Missing user or pass", Toast.LENGTH_LONG).show()
+            MaterialAlertDialogBuilder(this.requireContext())
+                .setTitle(resources.getString(R.string.invalid_user_or_pass))
+                .setMessage(resources.getString(R.string.invalid_user_pass_message))
+                .show()
+            return false
+        }
+        return true
     }
 
 
@@ -66,7 +86,10 @@ class UserLoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         view.findViewById<Button>(R.id.login_button).setOnClickListener() {
-            Toast.makeText(this.context, "Working", Toast.LENGTH_LONG).show()
+//            Toast.makeText(this.context, "Working", Toast.LENGTH_LONG).show()
+            if (isEntryValid()) {
+                Toast.makeText(this.context, "Good to go forward", Toast.LENGTH_LONG).show()
+            }
         }
         view.findViewById<ImageView>(R.id.help_button_1).setOnClickListener() {
             MaterialAlertDialogBuilder(this.requireContext())

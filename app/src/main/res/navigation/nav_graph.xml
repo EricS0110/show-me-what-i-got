@@ -8,5 +8,9 @@
         android:id="@+id/userLogin"
         android:name="com.builditmyself.collectionsview.UserLoginFragment"
         android:label="@string/login_fragment_label"
-        tools:layout="@layout/fragment_user_login" />
+        tools:layout="@layout/fragment_user_login" >
+        <action
+            android:id="@+id/action_userLogin_self"
+            app:destination="@id/userLogin" />
+    </fragment>
 </navigation>

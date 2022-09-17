@@ -25,4 +25,6 @@
         These values can be retrieved from your MongoDB Atlas instance -> click your database ->
         click your cluster -> click "Connect" -> click "Connect your application"
         \n\n\nmongodb+srv://{username}:{password}@{cluster}.{mongoURI}.mongodb.net</string>
+    <string name="invalid_user_or_pass">Invalid Username or Password</string>
+    <string name="invalid_user_pass_message">Please enter a username and password</string>
 </resources>
