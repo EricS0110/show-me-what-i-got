@@ -1,38 +1,23 @@
 package com.builditmyself.collectionsview
 
-import android.app.Dialog
-import android.app.ProgressDialog.show
-import android.content.DialogInterface
 import android.os.Bundle
-import android.system.Os.accept
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.ViewModelProvider
-import com.builditmyself.collectionsview.data.Connection
 import com.builditmyself.collectionsview.databinding.FragmentUserLoginBinding
 import com.builditmyself.collectionsview.model.MongoDataViewModel
-import com.builditmyself.collectionsview.model.ConnectionViewModel
-import com.builditmyself.collectionsview.model.ConnectionViewModelFactory
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import kotlinx.coroutines.NonCancellable.start
 
 
 class UserLoginFragment : Fragment() {
     private var _binding: FragmentUserLoginBinding? = null
     private val binding get() = _binding!!
     private val mongoViewModel: MongoDataViewModel by activityViewModels()
-    private val connectionViewModel: ConnectionViewModel by activityViewModels {
-        ConnectionViewModelFactory(
-            (activity?.application as ConnectionApplication).database.connectionDao()
-        )
-    }
-    lateinit var connection: Connection
 
     /////////////////////////////////////////////
     //

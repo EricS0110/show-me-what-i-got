@@ -1,12 +1,10 @@
 package com.builditmyself.collectionsview
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupActionBarWithNavController
-import com.builditmyself.collectionsview.model.ConnectionViewModel
 
 /**
  * Activity for main application flow
@@ -14,7 +12,6 @@ import com.builditmyself.collectionsview.model.ConnectionViewModel
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
     private lateinit var navController: NavController
-    private val sharedViewModel: ConnectionViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
