@@ -9,15 +9,27 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.lifecycleScope
+import com.builditmyself.collectionsview.data.SettingsDataStore
 import com.builditmyself.collectionsview.databinding.FragmentUserLoginBinding
 import com.builditmyself.collectionsview.model.MongoDataViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import kotlinx.coroutines.launch
 
 
 class UserLoginFragment : Fragment() {
     private var _binding: FragmentUserLoginBinding? = null
     private val binding get() = _binding!!
     private val mongoViewModel: MongoDataViewModel by activityViewModels()
+
+    // Track user settings/preferences/inputs/whatever-you-want-to-call-it
+    private lateinit var loginDataStore: SettingsDataStore
+    private var storedUsername: String = ""
+    private var storedPassword: String = ""
+    private var storedCluster: String = ""
+    private var storedUri: String = ""
+    private var storedDatabase: String = ""
 
     /////////////////////////////////////////////
     //
@@ -42,7 +54,21 @@ class UserLoginFragment : Fragment() {
                 .show()
             return false
         }
-        // Check if username and password defined in database
+        // Check if username and password defined in preferences
+        if (storedUsername == "" || storedPassword == "") {
+            MaterialAlertDialogBuilder(this.requireContext())
+                .setTitle("Cached value updates")
+                .setMessage("Updating stored username and password")
+                .show()
+            lifecycleScope.launch {
+                loginDataStore.saveUsernameToDataStore(usernameString = userName, requireContext())
+            }
+            lifecycleScope.launch {
+                loginDataStore.savePasswordToDataStore(passwordString = userPass, requireContext())
+            }
+        }
+
+        // If defined, check for non-empty-string MongoDB parameters
         // If defined, test connection to MongoDB
         //      if MongoDB connection successful, return true
         //      else notify user to verify provided credentials with alert dialog and return false
@@ -94,6 +120,13 @@ class UserLoginFragment : Fragment() {
                 .setMessage(resources.getString(R.string.mongo_generalized_string))
                 .show()
         }
+
+        // Initialize the SettingsDataStore
+        loginDataStore = SettingsDataStore(requireContext())
+        loginDataStore.usernameFlow.asLiveData().observe(viewLifecycleOwner,
+            { value -> storedUsername = value })
+        loginDataStore.passwordFlow.asLiveData().observe(viewLifecycleOwner,
+            { value -> storedPassword = value})
     }
 
     override fun onDestroyView() {
