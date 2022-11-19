@@ -1,6 +1,7 @@
 package com.builditmyself.collectionsview.data
 
 import android.content.Context
+import android.net.ipsec.ike.TunnelModeChildSessionParams.ConfigRequestIpv4Netmask
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
@@ -53,6 +54,39 @@ class SettingsDataStore(context: Context) {
         }
         .map { preferences -> preferences[PASSWORD_LABEL] ?: "" }
 
+    val clusterFlow: Flow<String> = context.dataStore.data
+        .catch {
+            if (it is IOException) {
+                it.printStackTrace()
+                emit(emptyPreferences())
+            } else {
+                throw it
+            }
+        }
+        .map { preferences -> preferences[MONGO_CLUSTER_NAME] ?: "" }
+
+    val uriFlow: Flow<String> = context.dataStore.data
+        .catch {
+            if (it is IOException) {
+                it.printStackTrace()
+                emit(emptyPreferences())
+            } else {
+                throw it
+            }
+        }
+        .map { preferences -> preferences[MONGO_URI_NAME] ?: "" }
+
+    val dbFlow: Flow<String> = context.dataStore.data
+        .catch {
+            if (it is IOException) {
+                it.printStackTrace()
+                emit(emptyPreferences())
+            } else {
+                throw it
+            }
+        }
+        .map { preferences -> preferences[MONGO_DATABASE_NAME] ?: "" }
+
     // Define the save methods for each of these keys
     suspend fun saveUsernameToDataStore(usernameString: String, context: Context) {
         context.dataStore.edit { preferences -> preferences[USERNAME_LABEL] = usernameString }
@@ -60,5 +94,17 @@ class SettingsDataStore(context: Context) {
 
     suspend fun savePasswordToDataStore(passwordString: String, context: Context) {
         context.dataStore.edit { preferences -> preferences[PASSWORD_LABEL] = passwordString}
+    }
+
+    suspend fun saveClusterToDataStore(clusterString: String, context: Context) {
+        context.dataStore.edit { preferences -> preferences[MONGO_CLUSTER_NAME] = clusterString }
+    }
+
+    suspend fun saveUriToDataStore(uriString: String, context: Context) {
+        context.dataStore.edit { preferences -> preferences[MONGO_URI_NAME] = uriString }
+    }
+
+    suspend fun saveDatabaseToDataStore(dbString: String, context: Context) {
+        context.dataStore.edit { preferences -> preferences[MONGO_DATABASE_NAME] = dbString}
     }
 }
