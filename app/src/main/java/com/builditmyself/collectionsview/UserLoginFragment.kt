@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.annotation.ReturnThis
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.datastore.dataStore
 import androidx.fragment.app.Fragment
@@ -85,7 +86,8 @@ class UserLoginFragment : Fragment() {
 
             MaterialAlertDialogBuilder(this.requireContext())
                 .setTitle("Credentials mismatch")
-                .setMessage("Cached values do not match input")
+                .setMessage("Cached values do not match input\n" +
+                        "CLEAR VALUES AFTER INPUT!!!")
                 .setNegativeButton("Cancel", dialogClickListener)
                 .setPositiveButton("Overwrite", dialogClickListener)
                 .show()
@@ -103,8 +105,10 @@ class UserLoginFragment : Fragment() {
         // Check if all values are empty
         val allStoredEmpty = (storedCluster == "" && storedUri == "" && storedDatabase == "")
         val allInputBlank = (userCluster.isBlank() && userUri.isBlank() && userDatabase.isBlank())
+        val allStoredFull = (storedCluster != "" && storedUri != "" && storedDatabase != "")
         val minOneInputFilled = (userCluster.isNotBlank() || userUri.isNotBlank() || userDatabase.isNotBlank())
         val anyStoredEmpty = (storedCluster == "" || storedUri == "" || storedDatabase == "")
+        val anyInputsMismatchStored = (userCluster != storedCluster || userUri != storedUri || userDatabase != storedDatabase)
         if (allStoredEmpty && allInputBlank) {
             MaterialAlertDialogBuilder(this.requireContext())
                 .setTitle("Alert!")
@@ -153,6 +157,43 @@ class UserLoginFragment : Fragment() {
             }
             return false
         }
+        if (allStoredFull && minOneInputFilled && anyInputsMismatchStored) {
+            val mongoCredsClickListener = DialogInterface.OnClickListener { dialog, which ->
+                when (which) {
+                    DialogInterface.BUTTON_NEGATIVE -> {
+                        Toast.makeText(this.context, "Values not overwritten, please check entered text", Toast.LENGTH_LONG).show()
+                        dialog.dismiss()
+                    }
+                    DialogInterface.BUTTON_POSITIVE -> {
+                        if (userCluster.isNotBlank() && userCluster != storedCluster) {
+                            lifecycleScope.launch {
+                                loginDataStore.saveClusterToDataStore(clusterString = userCluster, requireContext())
+                            }
+                        }
+                        if (userUri.isNotBlank() && userUri != storedUri) {
+                            lifecycleScope.launch {
+                                loginDataStore.saveUriToDataStore(uriString = userUri, requireContext())
+                            }
+                        }
+                        if (userDatabase.isNotBlank() && userDatabase != storedDatabase) {
+                            lifecycleScope.launch {
+                                loginDataStore.saveDatabaseToDataStore(dbString = userDatabase, requireContext())
+                            }
+                        }
+                        Toast.makeText(this.context, "New values are saved", Toast.LENGTH_LONG).show()
+                        dialog.dismiss()
+                    }
+                }
+            }
+
+            MaterialAlertDialogBuilder(this.requireContext())
+                .setTitle("MongoDB creds mismatch")
+                .setMessage("Cached values do not match input")
+                .setNegativeButton("Cancel", mongoCredsClickListener)
+                .setPositiveButton("Overwrite", mongoCredsClickListener)
+                .show()
+            return false
+        }
         return true
     }
 
@@ -181,6 +222,13 @@ class UserLoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         view.findViewById<Button>(R.id.login_button).setOnClickListener() {
+            val allCredentialsFilled = (storedUsername != "" && storedPassword != "" && storedCluster != "" && storedUri != "" && storedDatabase != "")
+            //
+            // TODO: Figure out a way to check MongoDB connection is valid with Python, only proceed if that check passes
+            //
+            if (allCredentialsFilled) {
+                Toast.makeText(this.context, "All creds stored, test", Toast.LENGTH_SHORT).show()
+            }
             if (validUserAndPassword() && filledMongoCredentials()) {
                 Toast.makeText(this.context, "Good to go forward", Toast.LENGTH_LONG).show()
             }
