@@ -7,6 +7,8 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.builditmyself.collectionsview.model.MongoDataViewModel
+import com.chaquo.python.Python
+import com.chaquo.python.android.AndroidPlatform
 
 /**
  * Activity for main application flow
@@ -20,6 +22,11 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         super.onCreate(savedInstanceState)
 
         // Start Python if not running, add to MongoDataViewModel
+        if (! Python.isStarted()) {
+            Python.start(AndroidPlatform(this))
+        }
+        val py = Python.getInstance()
+        sharedViewModel.setPythonInstance(py)
 
         // Retrieve NavController from the NavHostFragment
         val navHostFragment = supportFragmentManager

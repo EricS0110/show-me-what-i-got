@@ -13,6 +13,9 @@ class MongoDataViewModel: ViewModel() {
     private val _pythonInstance = MutableLiveData<Python>()
     val pythonInstance: LiveData<Python> = _pythonInstance
 
+    private val _pyModule = MutableLiveData<PyObject>()
+    val pyModule: LiveData<PyObject> = _pyModule
+
     private val _mongoInterface = MutableLiveData<PyObject>()
     val mongoInterface: LiveData<PyObject> = _mongoInterface
 
@@ -23,6 +26,9 @@ class MongoDataViewModel: ViewModel() {
     // DEFINE THE FUNCTIONS HERE ==============================================================
     fun setPythonInstance(python: Python) {
         _pythonInstance.value = python
+    }
+    fun setPythonModule(pyModule: PyObject) {
+        _pyModule.value = pyModule
     }
     fun setMongoInterface(mongoInterfaceInput: PyObject) {
         _mongoInterface.value = mongoInterfaceInput
