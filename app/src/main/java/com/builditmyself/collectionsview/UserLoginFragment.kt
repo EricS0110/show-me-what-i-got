@@ -197,6 +197,34 @@ class UserLoginFragment : Fragment() {
         return true
     }
 
+    private fun determineNextSteps(): Boolean {
+        // Get all available fields
+        val userName = binding.userEntryEdit.text.toString()
+        val userPass = binding.passwordEntryEdit.text.toString()
+        val userCluster = binding.clusterEditText.text.toString()
+        val userUri = binding.uriEditText.text.toString()
+        val userDatabase = binding.databaseEditText.text.toString()
+
+        // Logic variables for cleaner IF tree
+        val userAndPassEntered = (userName != "" && userPass != "")
+        val userAndPassCached = (storedUsername != "" && storedPassword != "")
+
+        if (!userAndPassEntered) {
+            Toast.makeText(this.context, "Username or password not provided, please ensure both are entered", Toast.LENGTH_SHORT).show()
+            return false
+        }
+        else {
+            if (!userAndPassCached) {
+                Toast.makeText(this.context, "nothing stored, caching the new values", Toast.LENGTH_SHORT).show()
+            }
+            else {
+                Toast.makeText(this.context, "values already cached, comparing the entered values", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        return true
+    }
+
 
     /////////////////////////////////////////////
     //
@@ -222,16 +250,20 @@ class UserLoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         view.findViewById<Button>(R.id.login_button).setOnClickListener() {
-            val allCredentialsFilled = (storedUsername != "" && storedPassword != "" && storedCluster != "" && storedUri != "" && storedDatabase != "")
-            //
-            // TODO: Figure out a way to check MongoDB connection is valid with Python, only proceed if that check passes
-            //
-            if (allCredentialsFilled) {
-                Toast.makeText(this.context, "All creds stored, test", Toast.LENGTH_SHORT).show()
+            if (determineNextSteps()){
+                Toast.makeText(this.context, "Made it through logic tree", Toast.LENGTH_LONG).show()
             }
-            if (validUserAndPassword() && filledMongoCredentials()) {
-                Toast.makeText(this.context, "Good to go forward", Toast.LENGTH_LONG).show()
-            }
+
+//            val allCredentialsCached = (storedUsername != "" && storedPassword != "" && storedCluster != "" && storedUri != "" && storedDatabase != "")
+//            //
+//            // TODO: Figure out a way to check MongoDB connection is valid with Python, only proceed if that check passes
+//            //
+//            if (allCredentialsCached) {
+//                Toast.makeText(this.context, "All creds stored, checking if valid", Toast.LENGTH_SHORT).show()
+//            }
+//            if (validUserAndPassword() && filledMongoCredentials()) {
+//                Toast.makeText(this.context, "Good to go forward", Toast.LENGTH_LONG).show()
+//            }
         }
         view.findViewById<ImageView>(R.id.help_button_1).setOnClickListener() {
             MaterialAlertDialogBuilder(this.requireContext())
