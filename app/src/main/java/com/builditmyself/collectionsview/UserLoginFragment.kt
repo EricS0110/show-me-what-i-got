@@ -8,9 +8,6 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
-import androidx.annotation.ReturnThis
-import androidx.core.content.ContentProviderCompat.requireContext
-import androidx.datastore.dataStore
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
@@ -208,17 +205,63 @@ class UserLoginFragment : Fragment() {
         // Logic variables for cleaner IF tree
         val userAndPassEntered = (userName != "" && userPass != "")
         val userAndPassCached = (storedUsername != "" && storedPassword != "")
+        val mongoCredentialsEntered = (userCluster != "" && userDatabase != "" && userUri != "")
+        val mongoCredentialsCached = (storedCluster != "" && storedDatabase != "" && storedUri != "")
+
 
         if (!userAndPassEntered) {
             Toast.makeText(this.context, "Username or password not provided, please ensure both are entered", Toast.LENGTH_SHORT).show()
             return false
         }
         else {
-            if (!userAndPassCached) {
-                Toast.makeText(this.context, "nothing stored, caching the new values", Toast.LENGTH_SHORT).show()
+            if (!userAndPassCached && !mongoCredentialsEntered && !mongoCredentialsCached) {
+                lifecycleScope.launch {
+                    loginDataStore.saveUsernameToDataStore(usernameString = userName, requireContext())
+                    loginDataStore.savePasswordToDataStore(passwordString = userPass, requireContext())
+                }
+                Toast.makeText(this.context, "Username and password now cached, please enter database credentials below", Toast.LENGTH_SHORT).show()
+                return false
             }
-            else {
-                Toast.makeText(this.context, "values already cached, comparing the entered values", Toast.LENGTH_SHORT).show()
+            if (!userAndPassCached && mongoCredentialsEntered && !mongoCredentialsCached) {
+                lifecycleScope.launch {
+                    loginDataStore.saveUsernameToDataStore(usernameString = userName, requireContext())
+                    loginDataStore.savePasswordToDataStore(passwordString = userPass, requireContext())
+                    loginDataStore.saveClusterToDataStore(clusterString = userCluster, requireContext())
+                    loginDataStore.saveUriToDataStore(uriString = userUri, requireContext())
+                    loginDataStore.saveDatabaseToDataStore(dbString = userDatabase, requireContext())
+                }
+                return true
+            }
+            if (userAndPassCached && !mongoCredentialsEntered && !mongoCredentialsCached) {
+                if (validUserAndPassword()) {
+                    Toast.makeText(
+                        this.context,
+                        "Username and password match cache, but database credentials missing",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                return false
+            }
+            if (userAndPassCached && !mongoCredentialsEntered && mongoCredentialsCached) {
+                return validUserAndPassword()
+            }
+            if (userAndPassCached && mongoCredentialsEntered && !mongoCredentialsCached) {
+                if (validUserAndPassword()) {
+                    lifecycleScope.launch {
+                        loginDataStore.saveClusterToDataStore(clusterString = userCluster, requireContext())
+                        loginDataStore.saveUriToDataStore(uriString = userUri, requireContext())
+                        loginDataStore.saveDatabaseToDataStore(dbString = userDatabase, requireContext())
+                    }
+                    Toast.makeText(this.context, "Database credentials cached, attempting login", Toast.LENGTH_SHORT).show()
+                    return true
+                }
+                else {
+                    Toast.makeText(this.context, "Database credentials not cached, please provide correct username and password", Toast.LENGTH_SHORT).show()
+                    return false
+                }
+            }
+            if (userAndPassCached && mongoCredentialsEntered && mongoCredentialsCached) {
+                return (validUserAndPassword() && filledMongoCredentials())
             }
         }
 
@@ -251,7 +294,7 @@ class UserLoginFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         view.findViewById<Button>(R.id.login_button).setOnClickListener() {
             if (determineNextSteps()){
-                Toast.makeText(this.context, "Made it through logic tree", Toast.LENGTH_LONG).show()
+                Toast.makeText(this.context, "Should attempt a login", Toast.LENGTH_SHORT).show()
             }
 
 //            val allCredentialsCached = (storedUsername != "" && storedPassword != "" && storedCluster != "" && storedUri != "" && storedDatabase != "")
