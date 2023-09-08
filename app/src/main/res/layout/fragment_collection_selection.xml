@@ -26,9 +26,21 @@
             android:layout_width="@dimen/spinner_width"
             android:layout_height="@dimen/spinner_height"
             android:layout_marginTop="@dimen/spinner_top_margin"
+            android:textSize="@dimen/spinner_text_size"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/collection_selection_label" />
+
+        <Button
+            android:id="@+id/collection_selection_button"
+            android:layout_width="@dimen/button_width"
+            android:layout_height="@dimen/button_height"
+            android:layout_marginBottom="@dimen/button_bottom_padding"
+            android:textSize="@dimen/button_text_size"
+            android:text="@string/next_button_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
