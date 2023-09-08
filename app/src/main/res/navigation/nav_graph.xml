@@ -10,7 +10,12 @@
         android:label="@string/login_fragment_label"
         tools:layout="@layout/fragment_user_login" >
         <action
-            android:id="@+id/action_userLogin_self"
-            app:destination="@id/userLogin" />
+            android:id="@+id/action_userLogin_to_collectionSelectionFragment"
+            app:destination="@id/collectionSelectionFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/collectionSelectionFragment"
+        android:name="com.builditmyself.collectionsview.CollectionSelectionFragment"
+        android:label="@string/collection_selection_fragment_label"
+        tools:layout="@layout/fragment_collection_selection" />
 </navigation>

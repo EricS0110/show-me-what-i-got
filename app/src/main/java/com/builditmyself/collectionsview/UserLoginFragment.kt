@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.builditmyself.collectionsview.data.SettingsDataStore
 import com.builditmyself.collectionsview.databinding.FragmentUserLoginBinding
 import com.builditmyself.collectionsview.model.MongoDataViewModel
@@ -321,6 +322,7 @@ class UserLoginFragment : Fragment() {
         view.findViewById<Button>(R.id.login_button).setOnClickListener() {
             if (determineNextSteps() && validMongoConnection()){
                 Toast.makeText(this.context, "Valid Connection! :)", Toast.LENGTH_SHORT).show()
+                findNavController().navigate(R.id.action_userLogin_to_collectionSelectionFragment)
             }
         }
         view.findViewById<ImageView>(R.id.help_button_1).setOnClickListener() {
