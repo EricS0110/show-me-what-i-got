@@ -23,4 +23,11 @@
     <dimen name="login_button_text_size">28sp</dimen>
     <dimen name="login_details_top_padding">500dp</dimen>
 
+    <!-- Post-login shared dimensions -->
+    <dimen name="label_text_size">28sp</dimen>
+    <dimen name="label_top_margin">100dp</dimen>
+    <dimen name="spinner_height">60dp</dimen>
+    <dimen name="spinner_width">325dp</dimen>
+    <dimen name="spinner_top_margin">10dp</dimen>
+
 </resources>

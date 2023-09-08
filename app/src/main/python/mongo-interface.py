@@ -3,22 +3,23 @@ import dns.resolver
 dns.resolver.default_resolver = dns.resolver.Resolver(configure=False)
 dns.resolver.default_resolver.nameservers = ['8.8.8.8']
 import pymongo
-import os
-from dotenv import load_dotenv
-from pathlib import Path
 
 
-def get_mongo_connection():
-    base_dir = Path(__file__).parent.resolve()
-    load_dotenv(base_dir / "mongo.env")
-    username = os.environ['MONGO_USERNAME']
-    password = os.environ['MONGO_PASSWORD']
-    cluster = os.environ['MONGO_CLUSTER']
-    database = os.environ['MONGO_DATABASE']
+def get_mongo_connection(input_username, input_password, input_cluster, input_database, input_uri):
+    username = str(input_username)
+    password = str(input_password)
+    cluster = str(input_cluster)
+    database = str(input_database)
+    uri = str(input_uri)
     mongo_client = pymongo.MongoClient(f'mongodb+srv://{username}:{password}'
-                                       f'@{cluster}.rs3leio.mongodb.net')
+                                       f'@{cluster}.{uri}.mongodb.net')
     mongo_db = mongo_client[f'{database}']
     return mongo_db
+
+
+def test_mongo_connection(mongo_db_input):
+    found_collection = [col for col in mongo_db_input.list_collections()]
+    return len(found_collection)
 
 
 def get_book_by_author(mongo_db_input, author):

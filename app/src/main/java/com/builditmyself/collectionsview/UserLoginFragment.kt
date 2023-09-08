@@ -9,10 +9,13 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.builditmyself.collectionsview.data.SettingsDataStore
 import com.builditmyself.collectionsview.databinding.FragmentUserLoginBinding
+import com.builditmyself.collectionsview.model.MongoDataViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.launch
 
@@ -28,6 +31,8 @@ class UserLoginFragment : Fragment() {
     private var storedCluster: String = ""
     private var storedUri: String = ""
     private var storedDatabase: String = ""
+
+    private val sharedViewModel: MongoDataViewModel by activityViewModels()
 
     /////////////////////////////////////////////
     //
@@ -268,6 +273,20 @@ class UserLoginFragment : Fragment() {
         return true
     }
 
+    private fun validMongoConnection(): Boolean {
+        val pythonInstance = sharedViewModel.pythonInstance.value
+        val pyModule = pythonInstance!!.getModule("mongo-interface")
+        val mongoInterface = pyModule.callAttr("get_mongo_connection", storedUsername, storedPassword, storedCluster, storedDatabase, storedUri)
+        val mongoRawTestResult = pyModule.callAttr("test_mongo_connection", mongoInterface)
+        val mongoTestResult = mongoRawTestResult.toInt()
+        return if (mongoTestResult >= 0) {
+            sharedViewModel.setMongoInterface(mongoInterface)
+            true
+        } else {
+            false
+        }
+    }
+
 
     /////////////////////////////////////////////
     //
@@ -292,21 +311,19 @@ class UserLoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        view.findViewById<Button>(R.id.login_button).setOnClickListener() {
-            if (determineNextSteps()){
-                Toast.makeText(this.context, "Should attempt a login", Toast.LENGTH_SHORT).show()
-            }
+        // Initialize the SettingsDataStore
+        loginDataStore = SettingsDataStore(requireContext())
+        loginDataStore.usernameFlow.asLiveData().observe(viewLifecycleOwner, { value -> storedUsername = value })
+        loginDataStore.passwordFlow.asLiveData().observe(viewLifecycleOwner, { value -> storedPassword = value })
+        loginDataStore.clusterFlow.asLiveData().observe(viewLifecycleOwner, { value -> storedCluster = value })
+        loginDataStore.uriFlow.asLiveData().observe(viewLifecycleOwner, { value -> storedUri = value })
+        loginDataStore.dbFlow.asLiveData().observe(viewLifecycleOwner, { value -> storedDatabase = value })
 
-//            val allCredentialsCached = (storedUsername != "" && storedPassword != "" && storedCluster != "" && storedUri != "" && storedDatabase != "")
-//            //
-//            // TODO: Figure out a way to check MongoDB connection is valid with Python, only proceed if that check passes
-//            //
-//            if (allCredentialsCached) {
-//                Toast.makeText(this.context, "All creds stored, checking if valid", Toast.LENGTH_SHORT).show()
-//            }
-//            if (validUserAndPassword() && filledMongoCredentials()) {
-//                Toast.makeText(this.context, "Good to go forward", Toast.LENGTH_LONG).show()
-//            }
+        view.findViewById<Button>(R.id.login_button).setOnClickListener() {
+            if (determineNextSteps() && validMongoConnection()){
+                Toast.makeText(this.context, "Valid Connection! :)", Toast.LENGTH_SHORT).show()
+                findNavController().navigate(R.id.action_userLogin_to_collectionSelectionFragment)
+            }
         }
         view.findViewById<ImageView>(R.id.help_button_1).setOnClickListener() {
             MaterialAlertDialogBuilder(this.requireContext())
@@ -320,14 +337,6 @@ class UserLoginFragment : Fragment() {
                 .setMessage(resources.getString(R.string.mongo_generalized_string))
                 .show()
         }
-
-        // Initialize the SettingsDataStore
-        loginDataStore = SettingsDataStore(requireContext())
-        loginDataStore.usernameFlow.asLiveData().observe(viewLifecycleOwner, { value -> storedUsername = value })
-        loginDataStore.passwordFlow.asLiveData().observe(viewLifecycleOwner, { value -> storedPassword = value })
-        loginDataStore.clusterFlow.asLiveData().observe(viewLifecycleOwner, { value -> storedCluster = value })
-        loginDataStore.uriFlow.asLiveData().observe(viewLifecycleOwner, { value -> storedUri = value })
-        loginDataStore.dbFlow.asLiveData().observe(viewLifecycleOwner, { value -> storedDatabase = value })
     }
 
     override fun onDestroyView() {
