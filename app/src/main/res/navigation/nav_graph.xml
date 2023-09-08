@@ -17,5 +17,14 @@
         android:id="@+id/collectionSelectionFragment"
         android:name="com.builditmyself.collectionsview.CollectionSelectionFragment"
         android:label="@string/collection_selection_fragment_label"
-        tools:layout="@layout/fragment_collection_selection" />
+        tools:layout="@layout/fragment_collection_selection" >
+        <action
+            android:id="@+id/action_collectionSelectionFragment_to_fieldSelectionFragment"
+            app:destination="@id/fieldSelectionFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/fieldSelectionFragment"
+        android:name="com.builditmyself.collectionsview.FieldSelectionFragment"
+        android:label="@string/field_selection_fragment_label"
+        tools:layout="@layout/fragment_field_selection" />
 </navigation>

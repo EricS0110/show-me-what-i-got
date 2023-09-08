@@ -35,4 +35,7 @@
     <string-array name="spinner_default">
         <item>Default Value</item>
     </string-array>
+
+    <!-- Strings related to the Field Selection fragment components -->
+    <string name="field_selection_fragment_label">Fragment Selection</string>
 </resources>
