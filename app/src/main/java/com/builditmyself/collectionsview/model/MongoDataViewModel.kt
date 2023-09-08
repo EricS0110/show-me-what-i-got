@@ -23,6 +23,13 @@ class MongoDataViewModel: ViewModel() {
     private val _collectionSelection = MutableLiveData("")
     val collectionSelection: LiveData<String> = _collectionSelection
 
+    // Field fragment variable(s)
+    private val _fieldSelection = MutableLiveData("")
+    val fieldSelection: LiveData<String> = _fieldSelection
+
+    private val _searchCriteria = MutableLiveData("")
+    val searchCriteria: LiveData<String> = _searchCriteria
+
     // DEFINE THE FUNCTIONS HERE ==============================================================
     fun setPythonInstance(python: Python) {
         _pythonInstance.value = python
@@ -38,5 +45,11 @@ class MongoDataViewModel: ViewModel() {
         _collectionSelection.value = choice
     }
 
-    //TODO: Implement this ViewModel
+    fun setField(field: String) {
+        _fieldSelection.value = field
+    }
+
+    fun setCriteria(criteria: String) {
+        _searchCriteria.value = criteria
+    }
 }

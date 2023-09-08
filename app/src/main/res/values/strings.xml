@@ -38,4 +38,8 @@
 
     <!-- Strings related to the Field Selection fragment components -->
     <string name="field_selection_fragment_label">Fragment Selection</string>
+    <string name="field_selection_label">Select a field…</string>
+    <string name="search_input_label">Enter search value…</string>
+    <string name="search_criteria_hint">enter search input</string>
+    <string name="search_button_text">Search</string>
 </resources>

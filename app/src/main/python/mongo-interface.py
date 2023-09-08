@@ -28,14 +28,38 @@ def get_collection_list(mongo_db_input):
 
 
 def get_field_list(mongo_db_input, collection):
-    mongo_collection = mongo_db_input.db[collection]
-    cursor = mongo_col.find({})
-    field_set = set()
+    mongo_collection = mongo_db_input[str(collection)]
+    cursor = mongo_collection.find({})
+    document_results = []
+    fields = []
     for document in cursor:
-        for key in document.keys():
-            field_set.add(key)
-    field_set.discard('_id')
-    return field_set
+        document_results.append(document)
+    for entry in document_results:
+        for key in entry.keys():
+            if key != "_id":
+                if key not in fields:
+                    fields.append(key)
+    return fields
+
+
+def get_items(mongo_db_input, collection, field, criteria):
+    mongo_collection = mongo_db_input[str(collection)]
+    item_query = {f"{field}": {"$regex": criteria, "$options": "i"}}
+    cursor = mongo_collection.find(item_query)
+    item_results = []
+    item_result_strings = []
+    for item in cursor:
+        item_results.append(item)
+    for entry in item_results:
+        text_string = ""
+        for key, value in entry.items()
+            if type(value) == str and value != "":
+                text_string += f"{key}: {value}\n"
+            elif type(value) == int or type(value) == float:
+                text_string += f"{key}: {value}\n"
+        item_result_strings.append(text_string)
+
+    return item_result_strings
 
 
 def hello_chaquopy(input):
