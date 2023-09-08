@@ -22,6 +22,11 @@ def test_mongo_connection(mongo_db_input):
     return len(found_collection)
 
 
+def get_collection_list(mongo_db_input):
+    found_collections = [col['name'] for col in mongo_db_input.list_collections()]
+    return found_collections
+
+
 def get_book_by_author(mongo_db_input, author):
     book_collection = mongo_db_input['books']
     book_author_query = {"Author": {"$regex": author, "$options": 'i'}}

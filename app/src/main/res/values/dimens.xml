@@ -28,6 +28,11 @@
     <dimen name="label_top_margin">100dp</dimen>
     <dimen name="spinner_height">60dp</dimen>
     <dimen name="spinner_width">325dp</dimen>
+    <dimen name="spinner_text_size">30sp</dimen>
     <dimen name="spinner_top_margin">10dp</dimen>
+    <dimen name="button_width">200dp</dimen>
+    <dimen name="button_height">80dp</dimen>
+    <dimen name="button_bottom_padding">100dp</dimen>
+    <dimen name="button_text_size">30sp</dimen>
 
 </resources>

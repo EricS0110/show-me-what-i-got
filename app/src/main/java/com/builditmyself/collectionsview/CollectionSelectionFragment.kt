@@ -6,7 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.Button
 import android.widget.Spinner
+import android.widget.Toast
+import androidx.core.view.get
 import androidx.fragment.app.activityViewModels
 import com.builditmyself.collectionsview.databinding.FragmentCollectionSelectionBinding
 import com.builditmyself.collectionsview.model.MongoDataViewModel
@@ -34,17 +37,34 @@ class CollectionSelectionFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val collection_spinner: Spinner = view.findViewById(R.id.collection_spinner)
+        // Get the collections list from MongoDB connection
+        val pythonInstance = sharedViewModel.pythonInstance.value
+        val mongoInstance = sharedViewModel.mongoInterface.value
+        val pyModule = pythonInstance!!.getModule("mongo-interface")
+        val rawCollectionList = pyModule.callAttr("get_collection_list", mongoInstance)
+        val collectionList = rawCollectionList.asList()
+
+        val collectionsArray: ArrayList<String> = ArrayList()
+        for (entry in collectionList) {
+            collectionsArray.add(entry.toString())
+        }
+
+        val collectionSpinner: Spinner = view.findViewById(R.id.collection_spinner)
         // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter.createFromResource(
+        ArrayAdapter(
             this.requireContext(),
-            R.array.spinner_default,
-            android.R.layout.simple_spinner_item
+            android.R.layout.simple_spinner_item,
+            collectionsArray
         ).also { adapter ->
             // Specify the layout to use when the list of choices appears
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             // Apply the adapter to the spinner
-            collection_spinner.adapter = adapter
+            collectionSpinner.adapter = adapter
+        }
+
+        view.findViewById<Button>(R.id.collection_selection_button).setOnClickListener() {
+            val spinnerSelection = collectionSpinner.selectedItem.toString()
+            sharedViewModel.setCollection(spinnerSelection)
         }
     }
 
