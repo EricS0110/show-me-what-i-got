@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 class CustomAdapter(private val mList: List<ItemViewModel>): RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        // inflates teh card_view_design view that is used to hold list item
+        // inflates the card_view_design view that is used to hold list item
         val view = LayoutInflater.from(parent.context).inflate(R.layout.card_view_design, parent, false)
         return ViewHolder(view)
     }

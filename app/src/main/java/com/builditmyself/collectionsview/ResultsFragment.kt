@@ -31,9 +31,7 @@ class ResultsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        binding.apply {
-//            viewModel = sharedViewModel
-//        }
+
         view.findViewById<Button>(R.id.button_to_collection).setOnClickListener {
             findNavController().navigate(R.id.action_resultsFragment_to_collectionSelectionFragment)
         }

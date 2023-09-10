@@ -295,29 +295,33 @@ class UserLoginFragment : Fragment() {
     //
     //
     /////////////////////////////////////////////
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentUserLoginBinding.inflate(inflater, container, false)
-        val view = binding.root
-        return view
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         // Initialize the SettingsDataStore
         loginDataStore = SettingsDataStore(requireContext())
-        loginDataStore.usernameFlow.asLiveData().observe(viewLifecycleOwner, { value -> storedUsername = value })
-        loginDataStore.passwordFlow.asLiveData().observe(viewLifecycleOwner, { value -> storedPassword = value })
-        loginDataStore.clusterFlow.asLiveData().observe(viewLifecycleOwner, { value -> storedCluster = value })
-        loginDataStore.uriFlow.asLiveData().observe(viewLifecycleOwner, { value -> storedUri = value })
-        loginDataStore.dbFlow.asLiveData().observe(viewLifecycleOwner, { value -> storedDatabase = value })
+        loginDataStore.usernameFlow.asLiveData().observe(viewLifecycleOwner) { value ->
+            storedUsername = value
+        }
+        loginDataStore.passwordFlow.asLiveData().observe(viewLifecycleOwner) { value ->
+            storedPassword = value
+        }
+        loginDataStore.clusterFlow.asLiveData().observe(viewLifecycleOwner) { value ->
+            storedCluster = value
+        }
+        loginDataStore.uriFlow.asLiveData().observe(viewLifecycleOwner) { value ->
+            storedUri = value
+        }
+        loginDataStore.dbFlow.asLiveData().observe(viewLifecycleOwner) { value ->
+            storedDatabase = value
+        }
 
         view.findViewById<Button>(R.id.login_button).setOnClickListener() {
             if (determineNextSteps() && validMongoConnection()){

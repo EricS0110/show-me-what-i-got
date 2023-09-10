@@ -8,8 +8,6 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.Spinner
-import android.widget.Toast
-import androidx.core.view.get
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.builditmyself.collectionsview.databinding.FragmentCollectionSelectionBinding
