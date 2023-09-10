@@ -26,6 +26,8 @@
             android:layout_width="@dimen/spinner_width"
             android:layout_height="@dimen/spinner_height"
             android:layout_marginTop="@dimen/spinner_top_margin"
+            android:background="@android:drawable/btn_dropdown"
+            android:spinnerMode="dropdown"
             android:textSize="@dimen/spinner_text_size"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
