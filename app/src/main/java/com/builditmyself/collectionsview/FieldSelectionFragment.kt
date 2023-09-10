@@ -10,6 +10,7 @@ import android.widget.Button
 import android.widget.Spinner
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.builditmyself.collectionsview.databinding.FragmentFieldSelectionBinding
 import com.builditmyself.collectionsview.model.MongoDataViewModel
 
@@ -63,9 +64,8 @@ class FieldSelectionFragment : Fragment() {
             val searchCriteria = binding.searchCriteriaEntryText.text.toString()
             sharedViewModel.setField(fieldSelection)
             sharedViewModel.setCriteria(searchCriteria)
-            Toast.makeText(this.context, "$fieldSelection: $searchCriteria", Toast.LENGTH_SHORT).show()
+            findNavController().navigate(R.id.action_fieldSelectionFragment_to_resultsFragment)
         }
-
 
     }
 

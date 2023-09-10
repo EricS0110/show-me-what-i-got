@@ -37,9 +37,14 @@
     </string-array>
 
     <!-- Strings related to the Field Selection fragment components -->
-    <string name="field_selection_fragment_label">Fragment Selection</string>
+    <string name="field_selection_fragment_label">Search Criteria</string>
     <string name="field_selection_label">Select a field…</string>
     <string name="search_input_label">Enter search value…</string>
     <string name="search_criteria_hint">enter search input</string>
     <string name="search_button_text">Search</string>
+    
+    <!-- Strings related to the Results fragment components -->
+    <string name="results_fragment_label">~ Results ~</string>
+    <string name="results_to_collection_button">Back to Collection Selection</string>
+    <string name="results_to_criteria_button">Back to Search Criteria</string>
 </resources>

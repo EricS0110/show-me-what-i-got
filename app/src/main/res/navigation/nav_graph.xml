@@ -26,5 +26,21 @@
         android:id="@+id/fieldSelectionFragment"
         android:name="com.builditmyself.collectionsview.FieldSelectionFragment"
         android:label="@string/field_selection_fragment_label"
-        tools:layout="@layout/fragment_field_selection" />
+        tools:layout="@layout/fragment_field_selection" >
+        <action
+            android:id="@+id/action_fieldSelectionFragment_to_resultsFragment"
+            app:destination="@id/resultsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/resultsFragment"
+        android:name="com.builditmyself.collectionsview.ResultsFragment"
+        android:label="fragment_results"
+        tools:layout="@layout/fragment_results" >
+        <action
+            android:id="@+id/action_resultsFragment_to_collectionSelectionFragment"
+            app:destination="@id/collectionSelectionFragment" />
+        <action
+            android:id="@+id/action_resultsFragment_to_fieldSelectionFragment"
+            app:destination="@id/fieldSelectionFragment" />
+    </fragment>
 </navigation>

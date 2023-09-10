@@ -52,7 +52,7 @@ def get_items(mongo_db_input, collection, field, criteria):
         item_results.append(item)
     for entry in item_results:
         text_string = ""
-        for key, value in entry.items()
+        for key, value in entry.items():
             if type(value) == str and value != "":
                 text_string += f"{key}: {value}\n"
             elif type(value) == int or type(value) == float:
