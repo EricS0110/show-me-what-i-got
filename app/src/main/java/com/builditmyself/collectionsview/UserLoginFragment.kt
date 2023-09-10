@@ -2,6 +2,7 @@ package com.builditmyself.collectionsview
 
 import android.content.DialogInterface
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -235,7 +236,8 @@ class UserLoginFragment : Fragment() {
                     loginDataStore.saveUriToDataStore(uriString = userUri, requireContext())
                     loginDataStore.saveDatabaseToDataStore(dbString = userDatabase, requireContext())
                 }
-                return true
+                Toast.makeText(this.context, "All values now cached, retry login", Toast.LENGTH_SHORT).show()
+                return false
             }
             if (userAndPassCached && !mongoCredentialsEntered && !mongoCredentialsCached) {
                 if (validUserAndPassword()) {
@@ -257,8 +259,8 @@ class UserLoginFragment : Fragment() {
                         loginDataStore.saveUriToDataStore(uriString = userUri, requireContext())
                         loginDataStore.saveDatabaseToDataStore(dbString = userDatabase, requireContext())
                     }
-                    Toast.makeText(this.context, "Database credentials cached, attempting login", Toast.LENGTH_SHORT).show()
-                    return true
+                    Toast.makeText(this.context, "Database credentials cached, retry login", Toast.LENGTH_SHORT).show()
+                    return false
                 }
                 else {
                     Toast.makeText(this.context, "Database credentials not cached, please provide correct username and password", Toast.LENGTH_SHORT).show()
@@ -276,6 +278,7 @@ class UserLoginFragment : Fragment() {
     private fun validMongoConnection(): Boolean {
         val pythonInstance = sharedViewModel.pythonInstance.value
         val pyModule = pythonInstance!!.getModule("mongo-interface")
+        Log.v("MANUAL", "username: $storedUsername\npassword: $storedPassword\ncluster: $storedCluster\nURI: $storedUri\ndatabase: $storedDatabase")
         val mongoInterface = pyModule.callAttr("get_mongo_connection", storedUsername, storedPassword, storedCluster, storedDatabase, storedUri)
         val mongoRawTestResult = pyModule.callAttr("test_mongo_connection", mongoInterface)
         val mongoTestResult = mongoRawTestResult.toInt()
@@ -324,8 +327,10 @@ class UserLoginFragment : Fragment() {
         }
 
         view.findViewById<Button>(R.id.login_button).setOnClickListener() {
-            if (determineNextSteps() && validMongoConnection()){
-                findNavController().navigate(R.id.action_userLogin_to_collectionSelectionFragment)
+            if (determineNextSteps()) {
+                if (validMongoConnection()) {
+                    findNavController().navigate(R.id.action_userLogin_to_collectionSelectionFragment)
+                }
             }
         }
         view.findViewById<ImageView>(R.id.help_button_1).setOnClickListener() {
