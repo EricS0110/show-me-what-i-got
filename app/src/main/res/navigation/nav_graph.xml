@@ -34,7 +34,7 @@
     <fragment
         android:id="@+id/resultsFragment"
         android:name="com.builditmyself.collectionsview.ResultsFragment"
-        android:label="fragment_results"
+        android:label="@string/results_fragment_label"
         tools:layout="@layout/fragment_results" >
         <action
             android:id="@+id/action_resultsFragment_to_collectionSelectionFragment"
