@@ -325,7 +325,6 @@ class UserLoginFragment : Fragment() {
 
         view.findViewById<Button>(R.id.login_button).setOnClickListener() {
             if (determineNextSteps() && validMongoConnection()){
-                Toast.makeText(this.context, "Valid Connection! :)", Toast.LENGTH_SHORT).show()
                 findNavController().navigate(R.id.action_userLogin_to_collectionSelectionFragment)
             }
         }

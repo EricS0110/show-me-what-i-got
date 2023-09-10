@@ -45,6 +45,7 @@
     <string name="search_input_label">Enter search value…</string>
     <string name="search_criteria_hint">enter search input</string>
     <string name="search_button_text">Search</string>
+    <string name="back_button_text">Back</string>
     
     <!-- Strings related to the Results fragment components -->
     <string name="results_fragment_label">~ Results ~</string>

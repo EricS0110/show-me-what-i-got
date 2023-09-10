@@ -30,6 +30,9 @@
         <action
             android:id="@+id/action_fieldSelectionFragment_to_resultsFragment"
             app:destination="@id/resultsFragment" />
+        <action
+            android:id="@+id/action_fieldSelectionFragment_to_collectionSelectionFragment"
+            app:destination="@id/collectionSelectionFragment" />
     </fragment>
     <fragment
         android:id="@+id/resultsFragment"

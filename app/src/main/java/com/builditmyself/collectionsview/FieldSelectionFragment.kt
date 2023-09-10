@@ -65,6 +65,10 @@ class FieldSelectionFragment : Fragment() {
             findNavController().navigate(R.id.action_fieldSelectionFragment_to_resultsFragment)
         }
 
+        view.findViewById<Button>(R.id.field_back_button).setOnClickListener() {
+            findNavController().navigate(R.id.action_fieldSelectionFragment_to_collectionSelectionFragment)
+        }
+
     }
 
     override fun onDestroyView() {
