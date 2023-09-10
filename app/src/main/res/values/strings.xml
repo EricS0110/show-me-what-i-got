@@ -50,4 +50,6 @@
     <string name="results_fragment_label">~ Results ~</string>
     <string name="results_to_collection_button">Back to Collection Selection</string>
     <string name="results_to_criteria_button">Back to Search Criteria</string>
+    <string name="item_placeholder">Item (placeholder)</string>
+
 </resources>
