@@ -45,7 +45,33 @@ def get_field_list(mongo_db_input, collection):
 def get_items(mongo_db_input, collection, field, criteria):
     mongo_collection = mongo_db_input[str(collection)]
     item_query = {f"{field}": {"$regex": criteria, "$options": "i"}}
-    cursor = mongo_collection.find(item_query)
+    if str(collection) == 'books':
+        # Sort criteria for books
+        cursor = mongo_collection.find(item_query).sort([("Author", pymongo.DESCENDING),
+                                                         ("Series", pymongo.DESCENDING),
+                                                         ("Series_Number", pymongo.ASCENDING)])
+    if str(collection) == 'comics':
+        # Sort criteria for comics
+        cursor = mongo_collection.find(item_query).sort([("Title", pymongo.DESCENDING),
+                                                         ("Issue_Year", pymongo.ASCENDING),
+                                                         ("Issue_Month", pymongo.ASCENDING)])
+    if str(collection) == 'movies':
+        # Sort criteria for movies
+        cursor = mongo_collection.find(item_query).sort([("Title", pymongo.DESCENDING),
+                                                         ("Series", pymongo.DESCENDING),
+                                                         ("Series_Number", pymongo.ASCENDING)])
+    if str(collection) == 'music':
+        # Sort criteria for music
+        cursor = mongo_collection.find(item_query).sort([("Artist", pymongo.DESCENDING),
+                                                         ("Year", pymongo.ASCENDING),
+                                                         ("Album", pymongo.DESCENDING)])
+    if str(collection) == 'television':
+        # Sort criteria for television
+        cursor = mongo_collection.find(item_query).sort([("Title", pymongo.DESCENDING),
+                                                         ("Season", pymongo.ASCENDING),
+                                                         ("Disc_Format", pymongo.ASCENDING)])
+    else:
+        cursor = mongo_collection.find(item_query)
     item_results = []
     item_result_strings = []
     for item in cursor:
