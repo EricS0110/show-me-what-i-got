@@ -1,5 +1,8 @@
 <resources>
+    <!-- General string values -->
     <string name="app_name">View DB</string>
+
+    <!-- Strings related to the Login screen -->
     <string name="mongodb_username">MongoDB Username <font color='#FF0000'>*</font></string>
     <string name="username_hint">As defined in MongoDB</string>
     <string name="mongodb_password">MongoDB Password <font color='#FF0000'>*</font></string>
@@ -35,4 +38,19 @@
     <string-array name="spinner_default">
         <item>Default Value</item>
     </string-array>
+
+    <!-- Strings related to the Field Selection fragment components -->
+    <string name="field_selection_fragment_label">Search Criteria</string>
+    <string name="field_selection_label">Select a field…</string>
+    <string name="search_input_label">Enter search value…</string>
+    <string name="search_criteria_hint">enter search input</string>
+    <string name="search_button_text">Search</string>
+    <string name="back_button_text">Back</string>
+    
+    <!-- Strings related to the Results fragment components -->
+    <string name="results_fragment_label">~ Results ~</string>
+    <string name="results_to_collection_button">Back to Collection Selection</string>
+    <string name="results_to_criteria_button">Back to Search Criteria</string>
+    <string name="item_placeholder">Item (placeholder)</string>
+
 </resources>

@@ -17,5 +17,33 @@
         android:id="@+id/collectionSelectionFragment"
         android:name="com.builditmyself.collectionsview.CollectionSelectionFragment"
         android:label="@string/collection_selection_fragment_label"
-        tools:layout="@layout/fragment_collection_selection" />
+        tools:layout="@layout/fragment_collection_selection" >
+        <action
+            android:id="@+id/action_collectionSelectionFragment_to_fieldSelectionFragment"
+            app:destination="@id/fieldSelectionFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/fieldSelectionFragment"
+        android:name="com.builditmyself.collectionsview.FieldSelectionFragment"
+        android:label="@string/field_selection_fragment_label"
+        tools:layout="@layout/fragment_field_selection" >
+        <action
+            android:id="@+id/action_fieldSelectionFragment_to_resultsFragment"
+            app:destination="@id/resultsFragment" />
+        <action
+            android:id="@+id/action_fieldSelectionFragment_to_collectionSelectionFragment"
+            app:destination="@id/collectionSelectionFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/resultsFragment"
+        android:name="com.builditmyself.collectionsview.ResultsFragment"
+        android:label="@string/results_fragment_label"
+        tools:layout="@layout/fragment_results" >
+        <action
+            android:id="@+id/action_resultsFragment_to_collectionSelectionFragment"
+            app:destination="@id/collectionSelectionFragment" />
+        <action
+            android:id="@+id/action_resultsFragment_to_fieldSelectionFragment"
+            app:destination="@id/fieldSelectionFragment" />
+    </fragment>
 </navigation>
