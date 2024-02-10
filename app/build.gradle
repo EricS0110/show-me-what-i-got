@@ -22,10 +22,10 @@ android {
             abiFilters "armeabi-v7a", "arm64-v8a", "x86", "x86_64"
         }
         python {
-            version "3.8"
+            version "3.10"
             pip {
-                install "pymongo==4.0.1"
-                install "dnspython==2.0.0"
+                install "pymongo==4.6.1"
+                install "dnspython==2.5.0"
             }
         }
     }
