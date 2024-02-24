@@ -11,6 +11,15 @@ apply plugin: 'kotlin-kapt'
 android {
     compileSdk 34
 
+    signingConfigs {
+        release {
+            keyAlias 'app_key_1'
+            keyPassword 'GottaSign2024'
+            storeFile file('C:/Users/erics/eric_app_signing.jks')
+            storePassword 'SeeItsMe2024'
+        }
+    }
+
     defaultConfig {
         applicationId "com.builditmyself.collectionsview"
         minSdk 30
@@ -32,6 +41,7 @@ android {
 
     buildTypes {
         release {
+            signingConfig signingConfigs.release
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }

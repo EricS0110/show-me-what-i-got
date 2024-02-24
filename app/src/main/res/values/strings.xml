@@ -1,6 +1,6 @@
 <resources>
     <!-- General string values -->
-    <string name="app_name">View DB</string>
+    <string name="app_name">Collections</string>
 
     <!-- Strings related to the Login screen -->
     <string name="mongodb_username">MongoDB Username <font color='#FF0000'>*</font></string>
