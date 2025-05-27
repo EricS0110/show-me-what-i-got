@@ -15,7 +15,7 @@ android {
         release {
             keyAlias 'app_key_1'
             keyPassword 'GottaSign2024'
-            storeFile file('C:/Users/erics/eric_app_signing.jks')
+            storeFile file('C:/Users/Eric/AppStuff/eric_app_signing.jks')
             storePassword 'SeeItsMe2024'
         }
     }
