@@ -1,8 +1,6 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
-
-    id 'com.chaquo.python'
 }
 
 apply plugin: 'kotlin-android'
@@ -26,17 +24,6 @@ android {
         targetSdk 34
         versionCode 3
         versionName "1.2"
-
-        ndk {
-            abiFilters "armeabi-v7a", "arm64-v8a", "x86", "x86_64"
-        }
-        python {
-            version "3.10"
-            pip {
-                install "pymongo==4.6.1"
-                install "dnspython==2.5.0"
-            }
-        }
     }
 
     buildTypes {
@@ -85,6 +72,8 @@ dependencies {
     implementation "androidx.datastore:datastore-preferences:1.0.0"
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.6.2'
 
-    // Chaquopy Integration
-
+    // Other dependencies...
+    implementation(platform("org.mongodb:mongodb-driver-bom:5.5.0"))
+    implementation 'org.mongodb:mongodb-driver-kotlin-sync:5.5.0'
+    implementation 'org.mongodb:bson-kotlinx:5.5.0'
 }

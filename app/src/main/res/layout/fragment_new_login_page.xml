@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".NewLoginPage">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/new_user_label"
+            android:layout_width="@dimen/text_label_width"
+            android:layout_height="@dimen/text_label_height"
+            android:layout_marginStart="@dimen/fragment_start_padding"
+            android:layout_marginTop="@dimen/new_login_padding_top"
+            android:text="@string/new_mongodb_username"
+            android:textSize="@dimen/text_label_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/new_user_entry"
+            android:layout_width="@dimen/text_entry_width"
+            android:layout_height="@dimen/text_entry_height"
+            android:layout_marginStart="@dimen/fragment_start_padding"
+            android:layout_marginTop="@dimen/fragment_labelToEntry_padding"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/new_user_label">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/new_user_entry_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/username_hint"
+                android:inputType="text"
+                android:maxLines="1"
+                android:minLines="1"
+                android:textSize="@dimen/text_entry_text_size" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/new_password_label"
+            android:layout_width="@dimen/text_label_width"
+            android:layout_height="@dimen/text_label_height"
+            android:layout_marginStart="@dimen/fragment_start_padding"
+            android:layout_marginTop="@dimen/new_fragment_entryToLabel_padding"
+            android:text="@string/new_mongodb_password"
+            android:textSize="@dimen/text_label_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/new_user_entry" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/new_password_entry"
+            android:layout_width="@dimen/text_entry_width"
+            android:layout_height="@dimen/text_entry_height"
+            android:layout_marginStart="@dimen/fragment_start_padding"
+            android:layout_marginTop="@dimen/fragment_labelToEntry_padding"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/new_password_label">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/new_password_entry_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/password_hint"
+                android:inputType="textVisiblePassword"
+                android:maxLines="1"
+                android:minLines="1"
+                android:textSize="@dimen/text_entry_text_size" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/new_mongo_cluster_label"
+            android:layout_width="@dimen/text_label_width"
+            android:layout_height="@dimen/text_label_height"
+            android:layout_marginStart="@dimen/fragment_start_padding"
+            android:layout_marginTop="@dimen/new_fragment_entryToLabel_padding"
+            android:text="@string/mongo_cluster"
+            android:textSize="@dimen/text_label_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/new_password_entry" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/new_mongo_cluster_text"
+            android:layout_width="@dimen/text_entry_width"
+            android:layout_height="@dimen/text_entry_height"
+            android:layout_marginStart="@dimen/fragment_start_padding"
+            android:layout_marginTop="@dimen/fragment_labelToEntry_padding"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/new_mongo_cluster_label">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/cluster_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/mongo_cluster_hint"
+                android:inputType="text"
+                android:maxLines="1"
+                android:minLines="1"
+                android:textSize="@dimen/text_entry_text_size" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/new_mongo_uri_label"
+            android:layout_width="@dimen/text_label_width"
+            android:layout_height="@dimen/text_label_height"
+            android:layout_marginStart="@dimen/fragment_start_padding"
+            android:layout_marginTop="@dimen/new_fragment_entryToLabel_padding"
+            android:text="@string/mongo_uri_string"
+            android:textSize="@dimen/text_label_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/new_mongo_cluster_text" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/new_mongo_uri_text"
+            android:layout_width="@dimen/text_entry_width"
+            android:layout_height="@dimen/text_entry_height"
+            android:layout_marginStart="@dimen/fragment_start_padding"
+            android:layout_marginTop="@dimen/fragment_labelToEntry_padding"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/new_mongo_uri_label">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/new_uri_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/mongo_uri_hint"
+                android:inputType="text"
+                android:maxLines="1"
+                android:minLines="1"
+                android:textSize="@dimen/text_entry_text_size" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/new_mongo_database_label"
+            android:layout_width="@dimen/text_label_width"
+            android:layout_height="@dimen/text_label_height"
+            android:layout_marginStart="@dimen/fragment_start_padding"
+            android:layout_marginTop="@dimen/new_fragment_entryToLabel_padding"
+            android:text="@string/mongo_database"
+            android:textSize="@dimen/text_label_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/new_mongo_uri_text" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/new_mongo_database_text"
+            android:layout_width="@dimen/text_entry_width"
+            android:layout_height="@dimen/text_entry_height"
+            android:layout_marginStart="@dimen/fragment_start_padding"
+            android:layout_marginTop="@dimen/fragment_labelToEntry_padding"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/new_mongo_database_label">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/new_database_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/mongo_database_hint"
+                android:inputType="text"
+                android:maxLines="1"
+                android:minLines="1"
+                android:textSize="@dimen/text_entry_text_size" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/login_button"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/login_button_height"
+            android:layout_marginTop="@dimen/new_login_button_top_padding"
+            android:text="@string/connect_button_text"
+            android:textSize="@dimen/login_button_text_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/new_mongo_database_text" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>

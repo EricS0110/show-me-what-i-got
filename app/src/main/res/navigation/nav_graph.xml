@@ -46,4 +46,52 @@
             android:id="@+id/action_resultsFragment_to_fieldSelectionFragment"
             app:destination="@id/fieldSelectionFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/newLoginPage"
+        android:name="com.builditmyself.collectionsview.NewLoginPage"
+        android:label="fragment_new_login_page"
+        tools:layout="@layout/fragment_new_login_page" >
+        <action
+            android:id="@+id/action_newLoginPage_to_homeFragment"
+            app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_newLoginPage_to_connectionErrorFragment"
+            app:destination="@id/connectionErrorFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/connectionErrorFragment"
+        android:name="com.builditmyself.collectionsview.ConnectionErrorFragment"
+        android:label="fragment_connection_error"
+        tools:layout="@layout/fragment_connection_error" >
+        <action
+            android:id="@+id/action_connectionErrorFragment_to_newLoginPage"
+            app:destination="@id/newLoginPage" />
+    </fragment>
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.builditmyself.collectionsview.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.builditmyself.collectionsview.SearchFragment"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_searchFragment_to_newResultsFragment"
+            app:destination="@id/newResultsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/newResultsFragment"
+        android:name="com.builditmyself.collectionsview.NewResultsFragment"
+        android:label="fragment_new_results"
+        tools:layout="@layout/fragment_new_results" >
+        <action
+            android:id="@+id/action_newResultsFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
+    </fragment>
 </navigation>

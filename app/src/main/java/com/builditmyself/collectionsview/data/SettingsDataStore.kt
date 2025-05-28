@@ -76,7 +76,7 @@ class SettingsDataStore(context: Context) {
         }
         .map { preferences -> preferences[MONGO_URI_NAME] ?: "" }
 
-    val dbFlow: Flow<String> = context.dataStore.data
+    val databaseFlow: Flow<String> = context.dataStore.data
         .catch {
             if (it is IOException) {
                 it.printStackTrace()
@@ -104,7 +104,7 @@ class SettingsDataStore(context: Context) {
         context.dataStore.edit { preferences -> preferences[MONGO_URI_NAME] = uriString }
     }
 
-    suspend fun saveDatabaseToDataStore(dbString: String, context: Context) {
-        context.dataStore.edit { preferences -> preferences[MONGO_DATABASE_NAME] = dbString}
+    suspend fun saveDatabaseToDataStore(databaseString: String, context: Context) {
+        context.dataStore.edit { preferences -> preferences[MONGO_DATABASE_NAME] = databaseString}
     }
 }

@@ -3,21 +3,14 @@ package com.builditmyself.collectionsview.model
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.chaquo.python.PyObject
-import com.chaquo.python.Python
+import com.mongodb.client.MongoClient
 
 class MongoDataViewModel: ViewModel() {
     // DEFINE THE VARIABLES HERE ===============================================================
 
-    // Python interface variable(s)
-    private val _pythonInstance = MutableLiveData<Python>()
-    val pythonInstance: LiveData<Python> = _pythonInstance
-
-    private val _pyModule = MutableLiveData<PyObject>()
-    val pyModule: LiveData<PyObject> = _pyModule
-
-    private val _mongoInterface = MutableLiveData<PyObject>()
-    val mongoInterface: LiveData<PyObject> = _mongoInterface
+    // MongoDB connection variable
+    private val _mongoConnection = MutableLiveData<MongoClient>()
+    val mongoConnection: LiveData<MongoClient> = _mongoConnection
 
     // Collection fragment variable(s)
     private val _collectionSelection = MutableLiveData("")
@@ -31,14 +24,10 @@ class MongoDataViewModel: ViewModel() {
     val searchCriteria: LiveData<String> = _searchCriteria
 
     // DEFINE THE FUNCTIONS HERE ==============================================================
-    fun setPythonInstance(python: Python) {
-        _pythonInstance.value = python
-    }
-    fun setPythonModule(pyModule: PyObject) {
-        _pyModule.value = pyModule
-    }
-    fun setMongoInterface(mongoInterfaceInput: PyObject) {
-        _mongoInterface.value = mongoInterfaceInput
+
+    fun setConnection(connection: MongoClient) {
+        // Set the MongoDB connection
+        _mongoConnection.value = connection
     }
 
     fun setCollection(choice: String) {

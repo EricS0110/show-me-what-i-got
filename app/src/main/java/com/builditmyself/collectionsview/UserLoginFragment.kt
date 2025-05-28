@@ -322,7 +322,7 @@ class UserLoginFragment : Fragment() {
         loginDataStore.uriFlow.asLiveData().observe(viewLifecycleOwner) { value ->
             storedUri = value
         }
-        loginDataStore.dbFlow.asLiveData().observe(viewLifecycleOwner) { value ->
+        loginDataStore.databaseFlow.asLiveData().observe(viewLifecycleOwner) { value ->
             storedDatabase = value
         }
 
