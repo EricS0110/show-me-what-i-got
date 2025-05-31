@@ -107,4 +107,31 @@ class SettingsDataStore(context: Context) {
     suspend fun saveDatabaseToDataStore(databaseString: String, context: Context) {
         context.dataStore.edit { preferences -> preferences[MONGO_DATABASE_NAME] = databaseString}
     }
+
+    suspend fun saveCredentials(
+        username: String,
+        password: String,
+        cluster: String,
+        uri: String,
+        database: String,
+        context: Context
+    ) {
+        context.dataStore.edit { preferences ->
+            preferences[USERNAME_LABEL] = username
+            preferences[PASSWORD_LABEL] = password
+            preferences[MONGO_CLUSTER_NAME] = cluster
+            preferences[MONGO_URI_NAME] = uri
+            preferences[MONGO_DATABASE_NAME] = database
+        }
+    }
+
+    suspend fun clearCredentials(context: Context) {
+        context.dataStore.edit { preferences ->
+            preferences.remove(USERNAME_LABEL)
+            preferences.remove(PASSWORD_LABEL)
+            preferences.remove(MONGO_CLUSTER_NAME)
+            preferences.remove(MONGO_URI_NAME)
+            preferences.remove(MONGO_DATABASE_NAME)
+        }
+    }
 }

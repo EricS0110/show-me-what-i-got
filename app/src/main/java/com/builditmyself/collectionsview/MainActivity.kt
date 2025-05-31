@@ -52,6 +52,9 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
                 navController.navigate(R.id.homeFragment)
                 } catch (e: Exception) {
                     e.printStackTrace()
+                    // If connection fails, clear the stored credentials
+                    // and navigate to the error fragment
+                    settingsDataStore.clearCredentials(context = this@MainActivity)
                     navController.navigate(R.id.connectionErrorFragment)
                 }
             } else {

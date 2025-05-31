@@ -3,53 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/userLogin">
-    <fragment
-        android:id="@+id/userLogin"
-        android:name="com.builditmyself.collectionsview.UserLoginFragment"
-        android:label="@string/login_fragment_label"
-        tools:layout="@layout/fragment_user_login" >
-        <action
-            android:id="@+id/action_userLogin_to_collectionSelectionFragment"
-            app:destination="@id/collectionSelectionFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/collectionSelectionFragment"
-        android:name="com.builditmyself.collectionsview.CollectionSelectionFragment"
-        android:label="@string/collection_selection_fragment_label"
-        tools:layout="@layout/fragment_collection_selection" >
-        <action
-            android:id="@+id/action_collectionSelectionFragment_to_fieldSelectionFragment"
-            app:destination="@id/fieldSelectionFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/fieldSelectionFragment"
-        android:name="com.builditmyself.collectionsview.FieldSelectionFragment"
-        android:label="@string/field_selection_fragment_label"
-        tools:layout="@layout/fragment_field_selection" >
-        <action
-            android:id="@+id/action_fieldSelectionFragment_to_resultsFragment"
-            app:destination="@id/resultsFragment" />
-        <action
-            android:id="@+id/action_fieldSelectionFragment_to_collectionSelectionFragment"
-            app:destination="@id/collectionSelectionFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/resultsFragment"
-        android:name="com.builditmyself.collectionsview.ResultsFragment"
-        android:label="@string/results_fragment_label"
-        tools:layout="@layout/fragment_results" >
-        <action
-            android:id="@+id/action_resultsFragment_to_collectionSelectionFragment"
-            app:destination="@id/collectionSelectionFragment" />
-        <action
-            android:id="@+id/action_resultsFragment_to_fieldSelectionFragment"
-            app:destination="@id/fieldSelectionFragment" />
-    </fragment>
+    app:startDestination="@id/newLoginPage">
     <fragment
         android:id="@+id/newLoginPage"
         android:name="com.builditmyself.collectionsview.NewLoginPage"
-        android:label="fragment_new_login_page"
+        android:label="@string/login_fragment_label"
         tools:layout="@layout/fragment_new_login_page" >
         <action
             android:id="@+id/action_newLoginPage_to_homeFragment"

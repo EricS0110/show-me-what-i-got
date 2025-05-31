@@ -1,6 +1,7 @@
 <resources>
     <!-- General string values -->
     <string name="app_name">Collections</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <!-- Strings related to the Login screen -->
     <string name="new_mongodb_username">MongoDB Username</string>
@@ -8,6 +9,21 @@
     <string name="connect_button_text">Connect</string>
     <string name="bottom_home">Home</string>
     <string name="bottom_search">Search</string>
+    <string name="mongo_help_title">Explaining User Credentials</string>
+    <string name="mongo_help_text">These are the Username and Password you
+        define within MongoDB, not your general MongoDB email &amp; password.
+        \n\n
+        This is a template of where to find your information
+        within the connection string provided by MongoDB:\n\n
+        These values can be retrieved from your MongoDB Atlas instance -> click your database ->
+        click your cluster -> click "Connect" -> click "Connect your application"
+        \n\n\nmongodb+srv://{username}:{password}@{cluster}.{mongoURI}.mongodb.net
+    </string>
+    <string name="login_fragment_label">Provide user details</string>
+    <string name="connection_error_title">Connection Error</string>
+    <string name="connection_error_message">Please check your connection details and try again.</string>
+    <string name="login_entry_error_title">Missing Credentials</string>
+    <string name="login_entry_error_message">Please ensure all connection details have values!</string>
 
     <string name="mongodb_username">MongoDB Username <font color='#FF0000'>*</font></string>
     <string name="username_hint">As defined in MongoDB</string>
@@ -21,7 +37,7 @@
     <string name="mongo_database">Mongo Database</string>
     <string name="mongo_database_hint">Database defined in MongoDB</string>
     <string name="confirm_user_details_button">Confirm</string>
-    <string name="login_fragment_label">Provide user details</string>
+
     <string name="hidden_details_hint"><font color='#1b5e20'>scroll down for details if required</font></string>
     <string name="just_an_indicator">just an indicator</string>
     <string name="click_for_help_popup">click for help popup</string>
@@ -58,7 +74,5 @@
     <string name="results_to_collection_button">Back to Collection Selection</string>
     <string name="results_to_criteria_button">Back to Search Criteria</string>
     <string name="item_placeholder">Item (placeholder)</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

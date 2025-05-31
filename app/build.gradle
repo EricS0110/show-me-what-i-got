@@ -7,7 +7,12 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdk 34
+    compileSdk = 35
+
+    packagingOptions {
+        exclude 'META-INF/native-image/native-image.properties'
+        exclude 'META-INF/native-image/reflect-config.json'
+    }
 
     signingConfigs {
         release {
@@ -20,16 +25,16 @@ android {
 
     defaultConfig {
         applicationId "com.builditmyself.collectionsview"
-        minSdk 30
-        targetSdk 34
-        versionCode 3
-        versionName "1.2"
+        minSdk = 30
+        targetSdk = 35
+        versionCode = 3
+        versionName = "1.2"
     }
 
     buildTypes {
         release {
-            signingConfig signingConfigs.release
-            minifyEnabled false
+            signingConfig = signingConfigs.release
+            minifyEnabled = false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -41,36 +46,37 @@ android {
         jvmTarget = '17'
     }
     buildFeatures {
-        viewBinding true
-        dataBinding true
+        viewBinding = true
+        dataBinding = true
     }
-    namespace 'com.builditmyself.collectionsview'
+    namespace = 'com.builditmyself.collectionsview'
+
 }
 
 dependencies {
-    def nav_version = '2.7.6'
-    def lifecycle_version = '2.6.2'
+    def nav_version = '2.9.0'
+    def lifecycle_version = '2.9.0'
 
-    implementation 'androidx.annotation:annotation:1.7.1'
-    implementation 'androidx.core:core-ktx:1.12.0'
-    implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'com.google.android.material:material:1.11.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.6.2'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2'
-    implementation 'androidx.recyclerview:recyclerview:1.3.2'
+    implementation 'androidx.annotation:annotation:1.9.1'
+    implementation 'androidx.core:core-ktx:1.16.0'
+    implementation 'androidx.appcompat:appcompat:1.7.0'
+    implementation 'com.google.android.material:material:1.12.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.2.1'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.9.0'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.9.0'
+    implementation 'androidx.recyclerview:recyclerview:1.4.0'
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
     implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycle_version"
     testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+    androidTestImplementation 'androidx.test.ext:junit:1.2.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.6.1'
 
     // Preferences DataStore
-    implementation "androidx.datastore:datastore-preferences:1.0.0"
-    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.6.2'
+    implementation "androidx.datastore:datastore-preferences:1.1.7"
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.9.0'
 
     // Other dependencies...
     implementation(platform("org.mongodb:mongodb-driver-bom:5.5.0"))

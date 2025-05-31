@@ -25,7 +25,7 @@
     <dimen name="login_details_top_padding">500dp</dimen>
 
     <!-- New User Login Page dimensions -->
-    <dimen name="new_login_padding_top">50dp</dimen>
+    <dimen name="new_login_padding_top">100dp</dimen>
     <dimen name="new_login_button_top_padding">5dp</dimen>
     <dimen name="new_fragment_entryToLabel_padding">15dp</dimen>
 
