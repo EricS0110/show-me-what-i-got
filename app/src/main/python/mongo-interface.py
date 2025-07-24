@@ -27,6 +27,16 @@ def get_collection_list(mongo_db_input):
     return found_collections
 
 
+def get_collection_counts(mongo_db_input):
+    collection_counts = {}
+    for collection in mongo_db_input.list_collections():
+        collection_name = collection['name']
+        mongo_collection = mongo_db_input[str(collection_name)]
+        count = mongo_collection.count_documents({})
+        collection_counts[collection_name] = count
+    return collection_counts
+
+
 def get_field_list(mongo_db_input, collection):
     mongo_collection = mongo_db_input[str(collection)]
     cursor = mongo_collection.find({})

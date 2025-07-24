@@ -58,6 +58,8 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
                     val mongoInterface = pyModule.callAttr("get_mongo_connection", username, password, cluster, database, uri)
                     sharedViewModel.setMongoInterface(mongoInterface)
                     Log.v("MANUAL", "Mongo interface set successfully with username: $username, cluster: $cluster, database: $database")
+                    val collectionCounts = pyModule.callAttr("get_collection_counts", mongoInterface)
+                    sharedViewModel.setCollectionCounts(collectionCounts)
 
                     navController.addOnDestinationChangedListener { _, destination, _ ->
                         if (destination.id == R.id.homeFragment) {

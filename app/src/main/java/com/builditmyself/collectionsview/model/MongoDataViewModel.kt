@@ -19,6 +19,9 @@ class MongoDataViewModel: ViewModel() {
     private val _mongoInterface = MutableLiveData<PyObject>()
     val mongoInterface: LiveData<PyObject> = _mongoInterface
 
+    private val _collectionCounts = MutableLiveData<PyObject>()
+    val collectionCounts: LiveData<PyObject> = _collectionCounts
+
     // Collection fragment variable(s)
     private val _collectionSelection = MutableLiveData("")
     val collectionSelection: LiveData<String> = _collectionSelection
@@ -51,5 +54,9 @@ class MongoDataViewModel: ViewModel() {
 
     fun setCriteria(criteria: String) {
         _searchCriteria.value = criteria
+    }
+
+    fun setCollectionCounts(counts: PyObject) {
+        _collectionCounts.value = counts
     }
 }

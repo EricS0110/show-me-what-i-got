@@ -54,6 +54,9 @@
     <string name="invalid_user_pass_message">Please enter a username and password</string>
     <string name="next_button_text">Next</string>
 
+    <!-- Strings related to the Home fragment components -->
+    <string name="home_fragment_label">Home</string>
+
     <!-- Strings related to the Collection Selection fragment components -->
     <string name="collection_selection_fragment_label">Collection Selection</string>
     <string name="collection_selection_label">Select a collection…</string>
