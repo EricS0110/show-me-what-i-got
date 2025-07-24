@@ -87,26 +87,26 @@ class SettingsDataStore(context: Context) {
         }
         .map { preferences -> preferences[MONGO_DATABASE_NAME] ?: "" }
 
-    // Define the save methods for each of these keys
-    suspend fun saveUsernameToDataStore(usernameString: String, context: Context) {
-        context.dataStore.edit { preferences -> preferences[USERNAME_LABEL] = usernameString }
-    }
-
-    suspend fun savePasswordToDataStore(passwordString: String, context: Context) {
-        context.dataStore.edit { preferences -> preferences[PASSWORD_LABEL] = passwordString}
-    }
-
-    suspend fun saveClusterToDataStore(clusterString: String, context: Context) {
-        context.dataStore.edit { preferences -> preferences[MONGO_CLUSTER_NAME] = clusterString }
-    }
-
-    suspend fun saveUriToDataStore(uriString: String, context: Context) {
-        context.dataStore.edit { preferences -> preferences[MONGO_URI_NAME] = uriString }
-    }
-
-    suspend fun saveDatabaseToDataStore(databaseString: String, context: Context) {
-        context.dataStore.edit { preferences -> preferences[MONGO_DATABASE_NAME] = databaseString}
-    }
+//    // Define the save methods for each of these keys
+//    suspend fun saveUsernameToDataStore(usernameString: String, context: Context) {
+//        context.dataStore.edit { preferences -> preferences[USERNAME_LABEL] = usernameString }
+//    }
+//
+//    suspend fun savePasswordToDataStore(passwordString: String, context: Context) {
+//        context.dataStore.edit { preferences -> preferences[PASSWORD_LABEL] = passwordString}
+//    }
+//
+//    suspend fun saveClusterToDataStore(clusterString: String, context: Context) {
+//        context.dataStore.edit { preferences -> preferences[MONGO_CLUSTER_NAME] = clusterString }
+//    }
+//
+//    suspend fun saveUriToDataStore(uriString: String, context: Context) {
+//        context.dataStore.edit { preferences -> preferences[MONGO_URI_NAME] = uriString }
+//    }
+//
+//    suspend fun saveDatabaseToDataStore(databaseString: String, context: Context) {
+//        context.dataStore.edit { preferences -> preferences[MONGO_DATABASE_NAME] = databaseString}
+//    }
 
     suspend fun saveCredentials(
         username: String,

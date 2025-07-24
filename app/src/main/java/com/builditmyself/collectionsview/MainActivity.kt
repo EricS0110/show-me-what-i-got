@@ -1,6 +1,7 @@
 package com.builditmyself.collectionsview
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ImageButton
 import android.widget.LinearLayout
@@ -12,10 +13,10 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.builditmyself.collectionsview.data.SettingsDataStore
 import com.builditmyself.collectionsview.model.MongoDataViewModel
-import com.mongodb.client.MongoClients
-import com.mongodb.client.MongoClient
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import com.chaquo.python.Python
+import com.chaquo.python.android.AndroidPlatform
 
 /**
  * Activity for main application flow
@@ -34,6 +35,13 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
             .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
 
+        // Start Python if not running, add to MongoDataViewModel
+        if (! Python.isStarted()) {
+            Python.start(AndroidPlatform(this))
+        }
+        val py = Python.getInstance()
+        sharedViewModel.setPythonInstance(py)
+
         settingsDataStore = SettingsDataStore(this)
 
         lifecycleScope.launch {
@@ -45,11 +53,21 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
             if (listOf(username, password, cluster, uri, database).all { it.isNotBlank() }) {
                 try {
-                    val connectionString =
-                        "mongodb+srv://$username:$password@$cluster.$uri.mongodb.net"
-                    val client: MongoClient = MongoClients.create(connectionString)
-                    sharedViewModel.setConnection(client)
-                navController.navigate(R.id.homeFragment)
+                    val pythonInstance = sharedViewModel.pythonInstance.value
+                    val pyModule = pythonInstance!!.getModule("mongo-interface")
+                    val mongoInterface = pyModule.callAttr("get_mongo_connection", username, password, cluster, database, uri)
+                    sharedViewModel.setMongoInterface(mongoInterface)
+                    Log.v("MANUAL", "Mongo interface set successfully with username: $username, cluster: $cluster, database: $database")
+
+                    navController.addOnDestinationChangedListener { _, destination, _ ->
+                        if (destination.id == R.id.homeFragment) {
+                            supportActionBar?.setDisplayHomeAsUpEnabled(false)
+                        } else {
+                            supportActionBar?.setDisplayHomeAsUpEnabled(true)
+                        }
+                    }
+
+                    navController.navigate(R.id.homeFragment)
                 } catch (e: Exception) {
                     e.printStackTrace()
                     // If connection fails, clear the stored credentials

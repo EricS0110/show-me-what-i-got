@@ -14,9 +14,9 @@ import com.builditmyself.collectionsview.data.SettingsDataStore
 import com.builditmyself.collectionsview.databinding.FragmentNewLoginPageBinding
 import com.builditmyself.collectionsview.model.MongoDataViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.mongodb.client.MongoClient
-import com.mongodb.client.MongoClients
 import kotlinx.coroutines.launch
+import android.util.Log
+import androidx.navigation.fragment.findNavController
 
 class NewLoginPage : Fragment() {
     private var _binding: FragmentNewLoginPageBinding? = null
@@ -79,10 +79,18 @@ class NewLoginPage : Fragment() {
                 // If the connection is successful, store the credentials
                 // and save the MongoDB client to the sharedViewModel
                 try {
-                    val connectionString =
-                        "mongodb+srv://$username:$password@$cluster.$uri.mongodb.net"
-                    val client: MongoClient = MongoClients.create(connectionString)
-                    sharedViewModel.setConnection(client)
+                    Log.v("MANUAL", "Connecting to MongoDB with: $username, $password, $cluster, $uri, $database")
+                    val pythonInstance = sharedViewModel.pythonInstance.value
+                    val pyModule = pythonInstance!!.getModule("mongo-interface")
+                    val mongoInterface = pyModule.callAttr(
+                        "get_mongo_connection",
+                        username,
+                        password,
+                        cluster,
+                        database,
+                        uri
+                    )
+                    sharedViewModel.setMongoInterface(mongoInterface)
 
                     // Save the credentials to the data store
                     viewLifecycleOwner.lifecycleScope.launch {
@@ -97,7 +105,7 @@ class NewLoginPage : Fragment() {
                     }
 
                     // Navigate to the home fragment
-                    requireActivity().supportFragmentManager.popBackStack()
+                    findNavController().navigate(R.id.action_newLoginPage_to_homeFragment)
                 } catch (e: Exception) {
                     e.printStackTrace()
                     MaterialAlertDialogBuilder(this.requireContext())
